@@ -12,10 +12,14 @@ import Listado from "./components/Listado";
 function App() {
   const [productos, setProductos] = useState(0);
 
+  const handleCarrito = ()=>{
+    setProductos(productos + 1);
+  }
+
   return (
     <div className="App">
       <Cabecera cantProductos={productos} />
-      <Listado agregarACarrito={() => setProductos(productos + 1)}/>
+      <Listado agregarACarrito={handleCarrito}/>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // El componente Item no tiene componentes hijos.
 // ESTADO: Item debe tener un número para almacenar la cantidad de stock, la misma se la defina el padre a la hora de crearlo.
@@ -13,13 +13,17 @@ import { useState } from "react";
 export default function Item(props) {
   
   const [stock, setStock] = useState(props.stock);
+  const btnRef = useRef();
 
-  function handleBtnComprar(e) {
-    setStock(stock - 1);
-    if(stock <= 1){ 
-      e.target.setAttribute('disabled','');
-      e.target.innerHTML = "SIN STOCK";
+  useEffect(() => {
+    if(stock <= 0){ 
+      btnRef.current.setAttribute('disabled','');
+      btnRef.current.innerHTML = "SIN STOCK";
     }
+  }, [stock])
+  
+  const handleBtnComprar = (e)=>{
+    setStock(stock - 1);
   }
 
   return (
@@ -27,7 +31,7 @@ export default function Item(props) {
       <h3>{props.nombre}</h3>
       <p>{props.descripcion}</p>
       <h5>En stock: <span>{(stock > 0) ? stock : "agotado"}</span></h5>
-      <button onClick={(e) => { handleBtnComprar(e); props.onAgregar() }}>COMPRAR</button>
+      <button ref={btnRef} onClick={(e) => { handleBtnComprar(e); props.onAgregar() }}>COMPRAR</button>
     </div>
   )
 
