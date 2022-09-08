@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from 'react-bootstrap/Button';
 
 // El componente Item no tiene componentes hijos.
@@ -14,13 +14,17 @@ import Button from 'react-bootstrap/Button';
 export default function Item(props) {
   
   const [stock, setStock] = useState(props.stock);
+  const btnRef = useRef();
 
-  function handleBtnComprar(e) {
-    setStock(stock - 1);
-    if(stock <= 1){ 
-      e.target.setAttribute('disabled','');
-      e.target.innerHTML = "SIN STOCK";
+  useEffect(() => {
+    if(stock <= 0){ 
+      btnRef.current.setAttribute('disabled','');
+      btnRef.current.innerHTML = "SIN STOCK";
     }
+  }, [stock])
+  
+  const handleBtnComprar = (e)=>{
+    setStock(stock - 1);
   }
 
   return (
@@ -28,7 +32,7 @@ export default function Item(props) {
       <h3>{props.nombre}</h3>
       <p>{props.descripcion}</p>
       <h5>En stock: {(stock > 0) ? stock : <span>agotado</span>}</h5>
-      <Button variant="warning" onClick={(e) => { handleBtnComprar(e); props.onAgregar() }}>COMPRAR</Button>
+      <Button variant="warning" ref={btnRef} onClick={(e) => { handleBtnComprar(e); props.onAgregar() }}>COMPRAR</Button>
     </div>
   )
 

@@ -20,13 +20,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   const [productos, setProductos] = useState(0);
 
+  const handleCarrito = ()=>{
+    setProductos(productos + 1);
+  }
+
   return (
     <div className="App">
 
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Cabecera cantProductos={productos}/>}>
-            <Route path="/" element={<Listado agregarACarrito={() => setProductos(productos + 1)}/>} />
+            <Route path="/" element={<Listado agregarACarrito={handleCarrito}/>} />
             <Route path="about" element={<About />}/>
           </Route>
         </Routes>
