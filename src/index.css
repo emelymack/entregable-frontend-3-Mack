@@ -68,3 +68,7 @@ header p span {
   padding: 5px;
   text-transform: uppercase;
 }
+
+.producto button{
+  font-weight: 700;
+}

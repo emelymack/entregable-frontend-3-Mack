@@ -1,6 +1,14 @@
 import { useState } from "react";
 import Cabecera from "./components/Cabecera";
 import Listado from "./components/Listado";
+import About from "./components/About"
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 // El componente App es el padre de:
 // - Cabecera
@@ -14,10 +22,19 @@ function App() {
 
   return (
     <div className="App">
-      <Cabecera cantProductos={productos} />
-      <Listado agregarACarrito={() => setProductos(productos + 1)}/>
+
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Cabecera cantProductos={productos}/>}>
+            <Route path="/" element={<Listado agregarACarrito={() => setProductos(productos + 1)}/>} />
+            <Route path="about" element={<About />}/>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+
     </div>
   );
+
 }
 
 export default App;

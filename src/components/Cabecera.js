@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link, Outlet } from 'react-router-dom'
+import Nav from 'react-bootstrap/Nav';
 
 // El componente Cabera no tiene componentes hijos.
 // ESTADO: Cabecera no tiene estado.
@@ -11,9 +13,21 @@ import React from 'react'
 export default function Cabecera(props) {
   
   return (
-    <header>
-        <h1>Carrito de compras</h1>
-        <p>Cantidad de productos: <span>{props.cantProductos}</span></p>
-    </header>
+    <div>
+      <header>
+          <Nav activeKey="/">
+            <Nav.Item className="me-3 mb-4">
+              <Link to="/" className="btn btn-info">Productos</Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Link to="/about" className="btn btn-info">About Us</Link>
+            </Nav.Item>
+          </Nav>
+          <h1>Carrito de compras</h1>
+          <p>Cantidad de productos: <span>{props.cantProductos}</span></p>
+      </header>
+
+      <Outlet />
+    </div>
   )
 }

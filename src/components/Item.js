@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Button from 'react-bootstrap/Button';
 
 // El componente Item no tiene componentes hijos.
 // ESTADO: Item debe tener un número para almacenar la cantidad de stock, la misma se la defina el padre a la hora de crearlo.
@@ -26,8 +27,8 @@ export default function Item(props) {
     <div className='producto'>
       <h3>{props.nombre}</h3>
       <p>{props.descripcion}</p>
-      <h5>En stock: <span>{(stock > 0) ? stock : "agotado"}</span></h5>
-      <button onClick={(e) => { handleBtnComprar(e); props.onAgregar() }}>COMPRAR</button>
+      <h5>En stock: {(stock > 0) ? stock : <span>agotado</span>}</h5>
+      <Button variant="warning" onClick={(e) => { handleBtnComprar(e); props.onAgregar() }}>COMPRAR</Button>
     </div>
   )
 
